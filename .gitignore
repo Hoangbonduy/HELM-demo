@@ -1,0 +1,10 @@
+prod_env/credentials.conf
+.venv/
+__pycache__/
+benchmark_output/
+prod_env/cache/
+.env
+
+# Dataset and generated archives stay local.
+*.zip
+outputs/

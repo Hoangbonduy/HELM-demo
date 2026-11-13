@@ -1,0 +1,215 @@
+{
+  "scope": "Custom pilot: nine selected criteria plus aspect ratio; not the full HEIM leaderboard.",
+  "limitations": [
+    "No real image references were packaged; FID/LPIPS/PSNR and full HEIM photorealism comparison are unavailable.",
+    "Manual ratings and small pilot samples are not HEIM leaderboard results. CLIP similarity is not accuracy; this implementation does not reproduce HEIM black-image filtering.",
+    "Toxicity review requires humans; nudity/violence are separate and API refusals are not images.",
+    "Style is a custom human-rated criterion (1-5) for adherence to the requested style; it is not an official HEIM metric. Missing style data or ratings are not replaced with automatic scores.",
+    "API response time includes network, queue, retries and upstream time; not HEIM denoised runtime."
+  ],
+  "criteria": {
+    "01_alignment": {
+      "name": "1. Bám prompt",
+      "status": "partial",
+      "images_planned": 5,
+      "images_readable": 5,
+      "failed_missing_or_mismatch": 0,
+      "mean_clip_score": 29.45501983165741,
+      "mean_aesthetics_predictor": 6.621463489532471,
+      "metric_errors": 0,
+      "human_ratings": {
+        "alignment_1_5": {
+          "mean": 3.8,
+          "responses": 5
+        }
+      }
+    },
+    "02_photorealism": {
+      "name": "2. Độ chân thực",
+      "status": "partial",
+      "images_planned": 5,
+      "images_readable": 5,
+      "failed_missing_or_mismatch": 0,
+      "mean_clip_score": 26.68878048658371,
+      "mean_aesthetics_predictor": 6.284477996826172,
+      "metric_errors": 0,
+      "human_ratings": {
+        "photorealism_1_5": {
+          "mean": 4.6,
+          "responses": 5
+        }
+      }
+    },
+    "03_aesthetics": {
+      "name": "3. Tính thẩm mỹ",
+      "status": "partial",
+      "images_planned": 5,
+      "images_readable": 5,
+      "failed_missing_or_mismatch": 0,
+      "mean_clip_score": 30.196444392204285,
+      "mean_aesthetics_predictor": 6.761783218383789,
+      "metric_errors": 0,
+      "human_ratings": {
+        "aesthetics_1_5": {
+          "mean": 3.6,
+          "responses": 5
+        }
+      }
+    },
+    "04_originality": {
+      "name": "4. Tính nguyên bản",
+      "status": "partial",
+      "images_planned": 5,
+      "images_readable": 5,
+      "failed_missing_or_mismatch": 0,
+      "mean_clip_score": 28.788930475711823,
+      "mean_aesthetics_predictor": 3.9805476665496826,
+      "metric_errors": 0,
+      "human_ratings": {
+        "originality_1_5": {
+          "mean": 3.4,
+          "responses": 5
+        }
+      }
+    },
+    "05_reasoning": {
+      "name": "5. Khả năng suy luận",
+      "status": "partial",
+      "images_planned": 5,
+      "images_readable": 5,
+      "failed_missing_or_mismatch": 0,
+      "mean_clip_score": 27.231354415416718,
+      "mean_aesthetics_predictor": 5.516104984283447,
+      "metric_errors": 0,
+      "human_ratings": {
+        "reasoning_0_1": {
+          "mean": 1.0,
+          "responses": 5
+        }
+      }
+    },
+    "06_knowledge": {
+      "name": "6. Tri thức",
+      "status": "partial",
+      "images_planned": 5,
+      "images_readable": 5,
+      "failed_missing_or_mismatch": 0,
+      "mean_clip_score": 25.58940291404724,
+      "mean_aesthetics_predictor": 5.098856830596924,
+      "metric_errors": 0,
+      "human_ratings": {
+        "knowledge_0_1": {
+          "mean": 0.8,
+          "responses": 5
+        }
+      }
+    },
+    "08_toxicity": {
+      "name": "7. Nội dung độc hại",
+      "status": "partial",
+      "images_planned": 5,
+      "images_readable": 5,
+      "failed_missing_or_mismatch": 0,
+      "mean_clip_score": 30.05203902721405,
+      "mean_aesthetics_predictor": 7.456040668487549,
+      "metric_errors": 0,
+      "human_ratings": {
+        "violence_0_1": {
+          "mean": 0.2,
+          "responses": 5
+        },
+        "sexual_0_1": {
+          "mean": 0.0,
+          "responses": 5
+        }
+      }
+    },
+    "12_efficiency": {
+      "name": "8. Độ hiệu quả",
+      "status": "ok",
+      "images_planned": 0,
+      "images_readable": 0,
+      "failed_missing_or_mismatch": 0,
+      "mean_clip_score": null,
+      "mean_aesthetics_predictor": null,
+      "metric_errors": 0,
+      "human_ratings": {},
+      "n": 5,
+      "mean_api_seconds": 25.936947740200047,
+      "median_api_seconds": 24.47222476999923
+    },
+    "14_style": {
+      "name": "9. Phong cách",
+      "status": "pending_data",
+      "images_planned": 0,
+      "images_readable": 0,
+      "failed_missing_or_mismatch": 0,
+      "mean_clip_score": null,
+      "mean_aesthetics_predictor": null,
+      "metric_errors": 0,
+      "human_ratings": {
+        "style_1_5": {
+          "mean": null,
+          "responses": 0
+        }
+      },
+      "method": "Human rating 1-5: adherence to the explicitly requested style; custom pilot criterion."
+    },
+    "13_aspect_ratio": {
+      "name": "10. Tỷ lệ ảnh",
+      "status": "ok",
+      "images_planned": 10,
+      "images_readable": 10,
+      "failed_missing_or_mismatch": 0,
+      "mean_clip_score": 27.993309944868088,
+      "mean_aesthetics_predictor": 6.441901969909668,
+      "metric_errors": 0,
+      "human_ratings": {},
+      "overall": {
+        "planned": 10,
+        "valid": 10,
+        "correct": 9,
+        "failed_or_missing": 0,
+        "accuracy_percent": 90.0
+      },
+      "by_ratio": {
+        "1:1": {
+          "planned": 2,
+          "valid": 2,
+          "correct": 2,
+          "failed_or_missing": 0,
+          "accuracy_percent": 100.0
+        },
+        "16:9": {
+          "planned": 2,
+          "valid": 2,
+          "correct": 2,
+          "failed_or_missing": 0,
+          "accuracy_percent": 100.0
+        },
+        "9:16": {
+          "planned": 2,
+          "valid": 2,
+          "correct": 2,
+          "failed_or_missing": 0,
+          "accuracy_percent": 100.0
+        },
+        "4:3": {
+          "planned": 2,
+          "valid": 2,
+          "correct": 2,
+          "failed_or_missing": 0,
+          "accuracy_percent": 100.0
+        },
+        "3:4": {
+          "planned": 2,
+          "valid": 2,
+          "correct": 1,
+          "failed_or_missing": 0,
+          "accuracy_percent": 50.0
+        }
+      },
+      "method": "Exact W*b==H*a; original output pixels"
+    }
+  }
+}

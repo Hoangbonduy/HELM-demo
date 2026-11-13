@@ -1,0 +1,188 @@
+{
+  "name": "HEIM pilot 5 base prompts per criterion, multilingual Spanish, and aspect ratio",
+  "helm_version": "0.5.16",
+  "scope": "A reduced pilot using HEIM scenarios, not a reproduction of the full HEIM leaderboard.",
+  "criteria": [
+    {
+      "id": "01_alignment",
+      "name_vi": "Bám prompt",
+      "file": "prompts/heim_pilot/01_alignment.jsonl",
+      "prompt_records": 5,
+      "image_requests": 5
+    },
+    {
+      "id": "02_photorealism",
+      "name_vi": "Độ chân thực",
+      "file": "prompts/heim_pilot/02_photorealism.jsonl",
+      "prompt_records": 5,
+      "image_requests": 5
+    },
+    {
+      "id": "03_aesthetics",
+      "name_vi": "Tính thẩm mỹ",
+      "file": "prompts/heim_pilot/03_aesthetics.jsonl",
+      "prompt_records": 5,
+      "image_requests": 5
+    },
+    {
+      "id": "04_originality",
+      "name_vi": "Tính nguyên bản",
+      "file": "prompts/heim_pilot/04_originality.jsonl",
+      "prompt_records": 5,
+      "image_requests": 5
+    },
+    {
+      "id": "05_reasoning",
+      "name_vi": "Khả năng suy luận",
+      "file": "prompts/heim_pilot/05_reasoning.jsonl",
+      "prompt_records": 5,
+      "image_requests": 5
+    },
+    {
+      "id": "06_knowledge",
+      "name_vi": "Tri thức",
+      "file": "prompts/heim_pilot/06_knowledge.jsonl",
+      "prompt_records": 5,
+      "image_requests": 5
+    },
+    {
+      "id": "07_bias",
+      "name_vi": "Thiên kiến",
+      "file": "prompts/heim_pilot/07_bias.jsonl",
+      "prompt_records": 5,
+      "image_requests": 20
+    },
+    {
+      "id": "08_toxicity",
+      "name_vi": "Nội dung độc hại",
+      "file": "prompts/heim_pilot/08_toxicity.jsonl",
+      "prompt_records": 5,
+      "image_requests": 5
+    },
+    {
+      "id": "09_fairness",
+      "name_vi": "Tính công bằng",
+      "file": "prompts/heim_pilot/09_fairness.jsonl",
+      "prompt_records": 15,
+      "image_requests": 15
+    },
+    {
+      "id": "10_robustness",
+      "name_vi": "Độ bền vững",
+      "file": "prompts/heim_pilot/10_robustness.jsonl",
+      "prompt_records": 10,
+      "image_requests": 10
+    },
+    {
+      "id": "11_multilinguality",
+      "name_vi": "Đa ngôn ngữ",
+      "file": "prompts/heim_pilot/11_multilinguality.jsonl",
+      "prompt_records": 5,
+      "image_requests": 5,
+      "language": "es",
+      "translation_origin": "pilot manual translation; not official HEIM translation"
+    },
+    {
+      "id": "13_aspect_ratio",
+      "name_vi": "Tỷ lệ ảnh đúng yêu cầu",
+      "file": "prompts/heim_pilot/13_aspect_ratio.jsonl",
+      "base_prompts": 2,
+      "prompt_records": 10,
+      "image_requests": 10,
+      "ratios": [
+        "1:1",
+        "16:9",
+        "9:16",
+        "4:3",
+        "3:4"
+      ],
+      "metric": "Exact equality W*b == H*a using original dimensions; readable successes only",
+      "origin": "Custom extension; not an original HEIM metric",
+      "request_policy": "Both prompt text and API size specify the same ratio; no client resize or crop"
+    }
+  ],
+  "maximum_image_requests": 95,
+  "efficiency": {
+    "criterion": 12,
+    "reuse": "elapsed_seconds from 01_alignment, no additional image requests",
+    "measurement": "API wall time including network/provider overhead; not denoised local runtime"
+  },
+  "notes": [
+    "Toxicity uses the HEIM hard=1 and prompt_toxicity<0.5 filter; this pilot excludes the sexual category.",
+    "Fairness and robustness reuse the 5 alignment originals. The pilot selection requires both gender and dialect changes.",
+    "Perturbations use unchanged HELM 0.5.16 text algorithms and dictionaries. RNG seed is the recorded stable source ID, not a full leaderboard instance ID.",
+    "Generation only: original metric definitions are not replaced. No FID conclusion from 5 images.",
+    "Human scoring for aesthetics/photorealism/originality remains separate; the runner does not score images.",
+    "Additional ratio test: 2 base contents x 5 ratios x 1 image = 10 image requests.",
+    "Five manually translated Spanish prompts added for multilingual pilot; translations are not official HEIM translations.",
+    "Up to 95 requests/model: 85 HEIM pilot requests plus 10 aspect-ratio tests."
+  ],
+  "sources": [
+    {
+      "file": "sources/correct_to_misspelling.json",
+      "url": "https://raw.githubusercontent.com/stanford-crfm/helm/v0.5.16/src/helm/benchmark/augmentations/correct_to_misspelling.json",
+      "sha256": "2f8e118895e52426bacd0cd32dfd0c14708e845c910d129f2d03571fe9f75c8b"
+    },
+    {
+      "file": "sources/SAE_to_AAVE_mapping.json",
+      "url": "https://storage.googleapis.com/crfm-helm-public/source_datasets/augmentations/dialect_perturbation/SAE_to_AAVE_mapping.json",
+      "sha256": "af94319d65afcb6aded4887b920d1a39ed8f1d5223faf3f062faf7bcd113f5c5"
+    },
+    {
+      "file": "sources/lowercase_perturbation.py",
+      "url": "https://raw.githubusercontent.com/stanford-crfm/helm/v0.5.16/src/helm/benchmark/augmentations/lowercase_perturbation.py",
+      "sha256": "7828fc9edf26bcd6cbc473d9ed0389b83f69cdea74f735c968c9c55e8a862186"
+    },
+    {
+      "file": "sources/contraction_expansion_perturbation.py",
+      "url": "https://raw.githubusercontent.com/stanford-crfm/helm/v0.5.16/src/helm/benchmark/augmentations/contraction_expansion_perturbation.py",
+      "sha256": "274f7bcc54aaa703304af8f0864453f41940baaf626fa2be51ad5b90592fbd18"
+    },
+    {
+      "file": "sources/space_perturbation.py",
+      "url": "https://raw.githubusercontent.com/stanford-crfm/helm/v0.5.16/src/helm/benchmark/augmentations/space_perturbation.py",
+      "sha256": "eb0ec38e8c9366ee53d235a2000b3b3a494078e4d0291913c78a630f2d14e113"
+    },
+    {
+      "file": "sources/misspelling_perturbation.py",
+      "url": "https://raw.githubusercontent.com/stanford-crfm/helm/v0.5.16/src/helm/benchmark/augmentations/misspelling_perturbation.py",
+      "sha256": "5b79c0473228c05f9f81615e045e1f3e054bb2393e7b03e0413cdfe0ba13762c"
+    },
+    {
+      "file": "sources/mild_mix_perturbation.py",
+      "url": "https://raw.githubusercontent.com/stanford-crfm/helm/v0.5.16/src/helm/benchmark/augmentations/mild_mix_perturbation.py",
+      "sha256": "9d86d6342baa874b8e00860e41288bfa93bd3248894a3509ff5dd5c2086604e5"
+    },
+    {
+      "file": "sources/gender_perturbation.py",
+      "url": "https://raw.githubusercontent.com/stanford-crfm/helm/v0.5.16/src/helm/benchmark/augmentations/gender_perturbation.py",
+      "sha256": "0f4b7ea3ac35e501c9f02bdfcdc07f290713b2a85e6e9bcbf5d23837c39cec27"
+    },
+    {
+      "file": "sources/dialect_perturbation.py",
+      "url": "https://raw.githubusercontent.com/stanford-crfm/helm/v0.5.16/src/helm/benchmark/augmentations/dialect_perturbation.py",
+      "sha256": "11ab34f54a34e37e499ec80c752e25050d21202d1a0672d91b9ae0d4e9b579ff"
+    },
+    {
+      "file": "sources/draw_bench.csv",
+      "url": "https://docs.google.com/spreadsheets/d/1y7nAbmR4FREi6npB1u-Bo3GFdwdOPYJc617rBOxIRHY/gviz/tq?tqx=out:csv&sheet=Sheet1",
+      "sha256": "e120fd4d8aa8f6c44b0b3ee92d9dfb7463c67f5b2d427d23a2bf388f80a0c0c1"
+    },
+    {
+      "file": "sources/PartiPrompts.tsv",
+      "url": "https://raw.githubusercontent.com/google-research/parti/main/PartiPrompts.tsv",
+      "sha256": "fab29e41bb512a169b56acab4cf2a41dcb675e285df2efcde6640c7dd3c440eb"
+    },
+    {
+      "file": "sources/i2p_benchmark.csv",
+      "url": "https://huggingface.co/datasets/AIML-TUDA/i2p/resolve/main/i2p_benchmark.csv",
+      "sha256": "5e78f211b3944d90182ab708ed0bd8af657c24a308153e6ccd5db9d9dbfe50cb"
+    },
+    {
+      "file": "sources/coco_selected_annotations.json",
+      "url": "https://raw.githubusercontent.com/tylin/coco-caption/master/annotations/captions_val2014.json",
+      "original_file_sha256": "ee4c7a657443714cc448e12e6193c4d4616de8ad2382a07b8f702ee5e3c46d2b"
+    }
+  ],
+  "maximum_heim_image_requests": 85
+}

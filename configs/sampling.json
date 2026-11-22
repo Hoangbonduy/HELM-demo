@@ -1,0 +1,24 @@
+{
+  "seed": 2021,
+  "total_prompts": 2000,
+  "datasets": {
+    "coco2014": 400,
+    "cub200": 160,
+    "drawbench": 200,
+    "partiprompts": 240,
+    "landing_pages": 36,
+    "logos": 100,
+    "magazine_covers": 50,
+    "daily_dalle": 93,
+    "paintskills": 241,
+    "relational_understanding": 75,
+    "winoground": 200,
+    "common_syntactic_processes": 52,
+    "historical_figures": 99,
+    "i2p": 54
+  },
+  "paintskills_spatial_groups": {
+    "same_object": 2,
+    "different_objects": 16
+  }
+}

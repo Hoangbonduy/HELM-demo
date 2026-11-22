@@ -1,0 +1,71 @@
+{
+  "configuration": {
+    "batch_size": 1,
+    "model": "CLIP ViT-L/14",
+    "aesthetic_head": "LAION sa_0_4_vit_l_14_linear",
+    "text_cache": "empty each pass; reused for identical captions within pass",
+    "warmup_images": 20,
+    "repeats": 3,
+    "manifest_sha256": "e40114adcf8d7922e65dbcfb059ac8e37ebcdcda96353e73ff3b27c0dbf0b4ca"
+  },
+  "environment": {
+    "python": "3.13.16",
+    "torch": "2.14.1+cu130",
+    "cuda": "13.0",
+    "device": "cuda",
+    "gpu": "Tesla T4",
+    "clip_dtype": "torch.float32"
+  },
+  "timing": {
+    "inference": "image encoding, uncached text encoding, normalization, similarity and aesthetic head; CUDA events on GPU, perf_counter on CPU",
+    "pipeline": "local file read/decode, preprocessing, tokenization, transfers, inference, scalar results, timing instrumentation and loop overhead",
+    "excluded": "network downloads, setup, model loading, validation, warmup and output file writes",
+    "filesystem_cache": "warm OS cache: validation reads all images before timing; sequential batch 1 with GPU sync per image"
+  },
+  "runs": [
+    {
+      "repeat": 1,
+      "images": 2000,
+      "pipeline_seconds": 95.82762109599997,
+      "pipeline_images_per_second": 20.87080924190326,
+      "pipeline_ms_per_image": 47.91381054799999,
+      "inference_seconds": 53.680968821525575,
+      "inference_images_per_second": 37.257151722604874,
+      "inference_ms_per_image": 26.840484410762787,
+      "peak_gpu_allocated_bytes": 967536128
+    },
+    {
+      "repeat": 2,
+      "images": 2000,
+      "pipeline_seconds": 89.804386765,
+      "pipeline_images_per_second": 22.27062699324029,
+      "pipeline_ms_per_image": 44.9021933825,
+      "inference_seconds": 49.93197598552704,
+      "inference_images_per_second": 40.054493348705186,
+      "inference_ms_per_image": 24.96598799276352,
+      "peak_gpu_allocated_bytes": 967536128
+    },
+    {
+      "repeat": 3,
+      "images": 2000,
+      "pipeline_seconds": 90.326973264,
+      "pipeline_images_per_second": 22.14178033127015,
+      "pipeline_ms_per_image": 45.163486632,
+      "inference_seconds": 50.05596977043152,
+      "inference_images_per_second": 39.9552742494546,
+      "inference_ms_per_image": 25.02798488521576,
+      "peak_gpu_allocated_bytes": 967536128
+    }
+  ],
+  "median": {
+    "images": 2000,
+    "pipeline_seconds": 90.326973264,
+    "pipeline_images_per_second": 22.14178033127015,
+    "pipeline_ms_per_image": 45.163486632,
+    "inference_seconds": 50.05596977043152,
+    "inference_images_per_second": 39.9552742494546,
+    "inference_ms_per_image": 25.02798488521576
+  },
+  "pipeline_seconds_min": 89.804386765,
+  "pipeline_seconds_max": 95.82762109599997
+}

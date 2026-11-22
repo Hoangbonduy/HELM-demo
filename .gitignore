@@ -8,3 +8,8 @@ prod_env/cache/
 # Dataset and generated archives stay local.
 *.zip
 outputs/
+/datasets/raw/
+/datasets/prepared/
+/.cache/
+/outputs/benchmark/
+/results/benchmark/

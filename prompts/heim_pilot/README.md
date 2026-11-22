@@ -23,27 +23,24 @@ nhóm suy luận lấy 2 Counting, 2 Positional và 1 Conflicting. Thiên kiến
 
 5 tỷ lệ: 1:1, 16:9, 9:16, 4:3, 3:4. File `13_aspect_ratio.jsonl` chứa 10
 phiên bản từ 2 caption gốc của nhóm alignment. Tỷ lệ ghi trong cả prompt và
-tham số API `size`; runner không resize/crop ảnh. Tham số size từng dòng được
-ưu tiên so với MUSE2API_SIZE trong .env. Không truyền --size khi chọn nhóm này.
+kích thước ảnh yêu cầu gửi đến Vita Design.
 
 ## Lệnh chạy
 
 ```bash
-cd /home/hoang/experiments/HELM
+cd /home/hoang/experiments/HELM-demo
 # Thử 1 prompt alignment, 1 ảnh:
-/home/hoang/.conda/envs/oneig/bin/python run_heim_prompts.py --criterion 01_alignment --limit 1 --images-per-prompt 1
+python3 run_heim_prompts.py --criterion 01_alignment --limit 1 --images-per-prompt 1
 # Chỉ chạy kiểm tra tỷ lệ (10 ảnh):
-/home/hoang/.conda/envs/oneig/bin/python run_heim_prompts.py --criterion 13_aspect_ratio --continue-on-error
+python3 run_heim_prompts.py --criterion 13_aspect_ratio --continue-on-error
 # Chạy tất cả (tối đa 95 lượt sinh):
-/home/hoang/.conda/envs/oneig/bin/python run_heim_prompts.py --all --continue-on-error
+python3 run_heim_prompts.py --all --continue-on-error
 # Chỉ xem kế hoạch, không gọi API:
-/home/hoang/.conda/envs/oneig/bin/python run_heim_prompts.py --all --dry-run
-# Chấm lại tỷ lệ từ file ảnh đã lưu, không gọi API:
-/home/hoang/.conda/envs/oneig/bin/python score_aspect_ratio.py --model muse-image
+python3 run_heim_prompts.py --all --dry-run
 ```
 
-Runner đọc `HELM/.env` (biến shell đã đặt có ưu tiên), dùng client ảnh của
-OneIG-Benchmark. Ảnh và metadata: `HELM/outputs/heim_pilot/<model>/<criterion>/`.
+Runner cần Pillow và httpx, dùng cấu hình Vita Ask UAT trong `.env`. Biến shell có ưu tiên.
+PNG và metadata nằm trong `outputs/heim_pilot/v-llm-v1-xlarge/<criterion>/`.
 Kết quả tỷ lệ tự lưu thành `aspect_ratio_report.json` trong thư mục `<model>`.
 Chạy lại bỏ qua ảnh thành công có metadata trùng prompt/model/size.
 Bản prompt 10 mẫu ban đầu được lưu ở `archive_10_prompts/`, không được --all chọn.
@@ -55,7 +52,6 @@ Không dùng sai số xấp xỉ. Accuracy = N_correct/N_valid * 100%, mục ti�
 Report gồm overall và by_ratio, kích thước từng ảnh và trạng thái. Ảnh không
 sinh được hoặc không đọc được được đếm riêng, loại khỏi N_valid; lượt chưa
 chạy được đếm not_run. Khi N_valid=0, accuracy là null, không phải 0%.
-`score_aspect_ratio.py` mở và giải mã ảnh lưu để kiểm tra lại kích thước thực.
 Đây là tiêu chí mở rộng theo yêu cầu, không phải metric gốc của HEIM.
 
 ## Giới hạn các nhóm HEIM
@@ -63,8 +59,7 @@ chạy được đếm not_run. Khi N_valid=0, accuracy là null, không phải 
 Chỉ tiêu tỷ lệ được tự động chấm trong runner. Các metric HEIM khác vẫn cần
 chấm riêng theo công thức gốc; chấm người cho chân thực/thẩm mỹ/nguyên bản
 không bị thay bằng AI judge. Không kết luận FID từ 5 ảnh. Hiệu quả ghi thời gian
-API, gồm cả mạng/provider; không phải denoised local runtime. Seed ảnh không
-được đảm bảo giữa model vì client hiện tại không truyền seed ảnh.
+API, gồm cả mạng/provider; không phải denoised local runtime. Vita Design hiện chưa nhận seed ảnh.
 
 Fairness dùng gender terms male→female prob=1 và SAE→AAVE prob=1; robustness
 dùng MildMix nguyên implementation HELM 0.5.16. Seed biến đổi là ID caption

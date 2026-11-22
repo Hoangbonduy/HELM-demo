@@ -1,0 +1,197 @@
+{
+  "coco2014": {
+    "version": "val2014",
+    "format": "coco",
+    "total": 40504,
+    "components": [
+      {
+        "file": "annotations_trainval2014.zip",
+        "urls": [
+          "https://s3.amazonaws.com/images.cocodataset.org/annotations/annotations_trainval2014.zip"
+        ],
+        "bytes": 252872794,
+        "sha256": "031296bbc80c45a1d1f76bf9a90ead27e94e99ec629208449507a4917a3bf009"
+      }
+    ]
+  },
+  "cub200": {
+    "version": "attngan-test",
+    "format": "cub",
+    "total": 29330,
+    "components": [
+      {
+        "file": "birds.zip",
+        "urls": [
+          "https://drive.usercontent.google.com/download?id=1O_LtUP9sch09QH3s_EBAgLEctBQ5JBSJ&export=download&confirm=t",
+          "https://drive.google.com/uc?export=download&id=1O_LtUP9sch09QH3s_EBAgLEctBQ5JBSJ"
+        ]
+      }
+    ]
+  },
+  "drawbench": {
+    "version": "imagen",
+    "format": "drawbench",
+    "total": 200,
+    "components": [
+      {
+        "file": "draw_bench.csv",
+        "urls": [
+          "https://docs.google.com/spreadsheets/d/1y7nAbmR4FREi6npB1u-Bo3GFdwdOPYJc617rBOxIRHY/gviz/tq?tqx=out:csv&sheet=Sheet1"
+        ],
+        "seed": "prompts/heim_pilot/sources/draw_bench.csv"
+      }
+    ]
+  },
+  "partiprompts": {
+    "version": "parti",
+    "format": "parti",
+    "total": 1632,
+    "components": [
+      {
+        "file": "PartiPrompts.tsv",
+        "urls": [
+          "https://raw.githubusercontent.com/google-research/parti/main/PartiPrompts.tsv"
+        ],
+        "seed": "prompts/heim_pilot/sources/PartiPrompts.tsv"
+      }
+    ]
+  },
+  "landing_pages": {
+    "version": "63754d05db6f874e41a395880fb573890a13e791",
+    "format": "landing",
+    "total": 36,
+    "components": [
+      {
+        "file": "scenario.py",
+        "urls": [
+          "https://raw.githubusercontent.com/stanford-crfm/helm/63754d05db6f874e41a395880fb573890a13e791/src/helm/benchmark/scenarios/image_generation/landing_page_scenario.py"
+        ]
+      }
+    ]
+  },
+  "logos": {
+    "version": "63754d05db6f874e41a395880fb573890a13e791",
+    "format": "logos",
+    "total": 100,
+    "components": [
+      {
+        "file": "scenario.py",
+        "urls": [
+          "https://raw.githubusercontent.com/stanford-crfm/helm/63754d05db6f874e41a395880fb573890a13e791/src/helm/benchmark/scenarios/image_generation/logos_scenario.py"
+        ]
+      }
+    ]
+  },
+  "magazine_covers": {
+    "version": "63754d05db6f874e41a395880fb573890a13e791",
+    "format": "magazine",
+    "total": 50,
+    "components": [
+      {
+        "file": "scenario.py",
+        "urls": [
+          "https://raw.githubusercontent.com/stanford-crfm/helm/63754d05db6f874e41a395880fb573890a13e791/src/helm/benchmark/scenarios/image_generation/magazine_cover_scenario.py"
+        ]
+      }
+    ]
+  },
+  "daily_dalle": {
+    "version": "63754d05db6f874e41a395880fb573890a13e791",
+    "format": "daily",
+    "total": 93,
+    "components": [
+      {
+        "file": "scenario.py",
+        "urls": [
+          "https://raw.githubusercontent.com/stanford-crfm/helm/63754d05db6f874e41a395880fb573890a13e791/src/helm/benchmark/scenarios/image_generation/daily_dalle_scenario.py"
+        ]
+      }
+    ]
+  },
+  "paintskills": {
+    "version": "heim-detection",
+    "format": "paint",
+    "total": 1869,
+    "components": [
+      {
+        "file": "prompts.csv",
+        "urls": [
+          "https://drive.usercontent.google.com/download?id=1HwfBlZCbfO8Vwss4HEXcyyD5sVezpmPg&export=download&confirm=t"
+        ]
+      }
+    ]
+  },
+  "relational_understanding": {
+    "version": "osf-tb3a4",
+    "format": "relational",
+    "total": 75,
+    "components": [
+      {
+        "file": "choice_data.csv",
+        "urls": [
+          "https://files.us.osf.io/v1/resources/sm68h/providers/osfstorage/62e12fcdf66a946b392304a8",
+          "https://osf.io/download/tb3a4",
+          "https://osf.io/tb3a4/download"
+        ]
+      }
+    ]
+  },
+  "winoground": {
+    "version": "heim-test",
+    "format": "winoground",
+    "total": 800,
+    "components": [
+      {
+        "file": "examples.jsonl",
+        "urls": [
+          "https://huggingface.co/datasets/facebook/winoground/resolve/main/data/examples.jsonl"
+        ],
+        "auth": [
+          "HUGGING_FACE_ACCESS_TOKEN",
+          "HF_TOKEN"
+        ],
+        "bytes": 115079
+      }
+    ]
+  },
+  "common_syntactic_processes": {
+    "version": "63754d05db6f874e41a395880fb573890a13e791",
+    "format": "syntax",
+    "total": 52,
+    "components": [
+      {
+        "file": "scenario.py",
+        "urls": [
+          "https://raw.githubusercontent.com/stanford-crfm/helm/63754d05db6f874e41a395880fb573890a13e791/src/helm/benchmark/scenarios/image_generation/common_syntactic_processes_scenario.py"
+        ]
+      }
+    ]
+  },
+  "historical_figures": {
+    "version": "63754d05db6f874e41a395880fb573890a13e791",
+    "format": "historical",
+    "total": 99,
+    "components": [
+      {
+        "file": "scenario.py",
+        "urls": [
+          "https://raw.githubusercontent.com/stanford-crfm/helm/63754d05db6f874e41a395880fb573890a13e791/src/helm/benchmark/scenarios/image_generation/time_most_significant_historical_figures_scenario.py"
+        ]
+      }
+    ]
+  },
+  "i2p": {
+    "version": "i2p-v1",
+    "format": "i2p",
+    "total": 4703,
+    "components": [
+      {
+        "file": "i2p_benchmark.csv",
+        "urls": [
+          "https://huggingface.co/datasets/AIML-TUDA/i2p/resolve/main/i2p_benchmark.csv"
+        ],
+        "seed": "prompts/heim_pilot/sources/i2p_benchmark.csv"
+      }
+    ]
+  }
+}

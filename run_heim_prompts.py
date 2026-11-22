@@ -2,12 +2,26 @@
 import argparse
 import hashlib
 import json
-import os
+from io import BytesIO
 from pathlib import Path
-import sys
 import time
 
-ROOT = Path(__file__).resolve().parent
+from image_generation import DEFAULT_SIZE, ROOT, ImageClient, atomic_write, settings
+
+
+def save_info(path, info):
+    atomic_write(path, (json.dumps(info, ensure_ascii=False, indent=2) + "\n").encode("utf-8"))
+
+
+def finish_library_cleanup(client, image_path, info_path, info):
+    if info.get("asset_created") is not True or info.get("asset_deleted_at"):
+        return
+    from PIL import Image
+
+    with Image.open(image_path) as image:
+        image.load()
+    info["asset_deleted_at"] = client.delete_asset(info["asset_id"])
+    save_info(info_path, info)
 
 
 def main():
@@ -17,7 +31,6 @@ def main():
     selection.add_argument('--all', action='store_true')
     parser.add_argument('--limit', type=int, help='First N prompt records in each selected criterion')
     parser.add_argument('--images-per-prompt', type=int, help='Override samples per prompt')
-    parser.add_argument('--model', help='Defaults to MUSE2API_MODEL in HELM/.env or muse-image')
     parser.add_argument('--size')
     parser.add_argument('--output-dir', type=Path, default=ROOT / 'outputs' / 'heim_pilot')
     parser.add_argument('--dry-run', action='store_true', help='Inspect jobs without importing API dependencies or making requests')
@@ -43,14 +56,12 @@ def main():
         for row in records:
             print(f"{row['criterion']} | {row['id']} | {args.images_per_prompt or row['samples']} image(s)")
         return
-    # Load HELM's configuration before importing the shared image client.
-    from dotenv import load_dotenv
-    load_dotenv(ROOT / '.env')
-    sys.path.insert(0, str(ROOT.parent / 'OneIG-Benchmark'))
-    from inference import inference
+    from PIL import Image
     from aspect_ratio_metrics import measure_ratio, summarize_aspect_ratios
-    model = args.model or os.getenv('MUSE2API_MODEL') or 'muse-image'
-    size = args.size or os.getenv('MUSE2API_SIZE', '1024x1024')
+
+    client = ImageClient(settings())
+    model = client.model
+    size = args.size or DEFAULT_SIZE
     model_folder = model.replace('/', '_').replace('\\', '_')
     if model_folder in ('.', '..'):
         parser.error('Invalid model ID')
@@ -69,6 +80,7 @@ def main():
             if image_path.exists():
                 old = json.loads(info_path.read_text()) if info_path.exists() else {}
                 if old.get('status') == 'success' and all(old.get(k) == v for k, v in identity.items()):
+                    finish_library_cleanup(client, image_path, info_path, old)
                     print(f'Skip existing {image_path}', flush=True)
                     continue
                 raise RuntimeError(f'Existing image has different or missing metadata: {image_path}')
@@ -76,18 +88,28 @@ def main():
             info = {**row, **identity, 'sample': sample, 'output': str(image_path),
                     'timestamp_utc': time.strftime('%Y-%m-%dT%H:%M:%SZ', time.gmtime())}
             try:
-                image = inference(row['prompt'], model=model, size=row_size)
-                # Measure before saving, without resizing or cropping the image.
-                info.update(width=image.width, height=image.height)
-                if 'requested_ratio' in row:
-                    info['aspect_ratio_result'] = measure_ratio(image.width, image.height, row['requested_ratio'])
-                image.save(image_path, format='PNG')
-                info['status'] = 'success'
+                result, image_bytes = client.image(row['prompt'], row_size)
+                info['request_prompt'] = result['request_prompt']
+                if result['status'] != 'success':
+                    details = [result.get('http_status'), result.get('error_code')]
+                    raise RuntimeError(' '.join(str(detail) for detail in details if detail) or result['status'])
+                with Image.open(BytesIO(image_bytes)) as image:
+                    # Measure before saving, without resizing or cropping the image.
+                    info.update(width=image.width, height=image.height)
+                    if 'requested_ratio' in row:
+                        info['aspect_ratio_result'] = measure_ratio(image.width, image.height, row['requested_ratio'])
+                    saved_image = BytesIO()
+                    image.save(saved_image, format='PNG')
+                    atomic_write(image_path, saved_image.getvalue())
+                info.update(status='success', asset_id=result.get('asset_id'),
+                            asset_created=result.get('asset_created', False))
             except Exception as error:
                 failures += 1
                 info.update(status='error', error=str(error))
             info['elapsed_seconds'] = time.perf_counter() - started
-            info_path.write_text(json.dumps(info, ensure_ascii=False, indent=2) + '\n')
+            save_info(info_path, info)
+            if info['status'] == 'success':
+                finish_library_cleanup(client, image_path, info_path, info)
             with (output / 'results.jsonl').open('a') as log:
                 log.write(json.dumps(info, ensure_ascii=False) + '\n')
             print(f"{info['status']}: {image_path} ({info['elapsed_seconds']:.2f}s)", flush=True)

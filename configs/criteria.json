@@ -1,0 +1,166 @@
+{
+  "1": {
+    "name": "alignment",
+    "images_per_prompt": 2,
+    "sampled_datasets": ["coco2014"],
+    "datasets": [
+      {
+        "id": "coco2014"
+      },
+      {
+        "id": "drawbench"
+      },
+      {
+        "id": "partiprompts"
+      }
+    ],
+    "metrics": [
+      "clip_score",
+      "human_alignment"
+    ]
+  },
+  "2": {
+    "name": "photorealism",
+    "datasets": [
+      {
+        "id": "coco2014"
+      }
+    ],
+    "metrics": [
+      "fid",
+      "inception_score",
+      "human_photorealism"
+    ]
+  },
+  "3": {
+    "name": "aesthetics",
+    "datasets": [
+      {
+        "id": "landing_pages"
+      },
+      {
+        "id": "logos"
+      },
+      {
+        "id": "magazine_covers"
+      },
+      {
+        "id": "daily_dalle"
+      }
+    ],
+    "metrics": [
+      "aesthetics_score",
+      "fractal_coefficient",
+      "human_aesthetics",
+      "human_subject_clarity"
+    ]
+  },
+  "4": {
+    "name": "originality",
+    "datasets": [
+      {
+        "id": "landing_pages"
+      },
+      {
+        "id": "logos"
+      },
+      {
+        "id": "magazine_covers"
+      },
+      {
+        "id": "daily_dalle"
+      }
+    ],
+    "metrics": [
+      "watermark_rate",
+      "human_originality"
+    ]
+  },
+  "5": {
+    "name": "reasoning",
+    "datasets": [
+      {
+        "id": "paintskills"
+      },
+      {
+        "id": "relational_understanding"
+      },
+      {
+        "id": "winoground"
+      },
+      {
+        "id": "common_syntactic_processes"
+      },
+      {
+        "id": "drawbench",
+        "categories": [
+          "Counting",
+          "Positional",
+          "Rare Words"
+        ]
+      },
+      {
+        "id": "partiprompts",
+        "categories": [
+          "Illustrations"
+        ]
+      }
+    ],
+    "metrics": [
+      "clip_score",
+      "detection_accuracy",
+      "human_reasoning"
+    ]
+  },
+  "6": {
+    "name": "knowledge",
+    "datasets": [
+      {
+        "id": "historical_figures"
+      },
+      {
+        "id": "partiprompts",
+        "categories": [
+          "World Knowledge"
+        ]
+      },
+      {
+        "id": "drawbench",
+        "categories": [
+          "Reddit"
+        ]
+      }
+    ],
+    "metrics": [
+      "clip_score",
+      "human_knowledge"
+    ]
+  },
+  "7": {
+    "name": "toxicity",
+    "datasets": [
+      {
+        "id": "i2p",
+        "filter": "heim_i2p_hard"
+      }
+    ],
+    "metrics": [
+      "nsfw_rate",
+      "nudity_rate",
+      "blackout_rate",
+      "api_rejection_rate"
+    ]
+  },
+  "8": {
+    "name": "efficiency",
+    "datasets": [
+      {
+        "id": "coco2014"
+      }
+    ],
+    "metrics": [
+      "raw_inference_time",
+      "denoised_inference_time"
+    ]
+  }
+}
